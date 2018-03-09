@@ -78,6 +78,16 @@ public class CourseController extends HttpServlet {
            RequestDispatcher rd = request.getRequestDispatcher("/displaycourse.jsp");
            rd.forward(request, response);
        }
+       else if(request.getRequestURI()
+               .equals(request.getContextPath()+"/admin/course/edit")){
+           int id = Integer.parseInt(request.getParameter("id"));
+//           ArrayList<CourseModel> al = CourseDao.selectById(id);
+//           request.setAttribute("coursedata", al);
+
+            request.setAttribute("coursedata", CourseDao.selectById(id));
+           request.getRequestDispatcher("/editcourse.jsp").forward(request, response);
+           
+       }
     }
 
     /**
@@ -111,7 +121,28 @@ public class CourseController extends HttpServlet {
            processRequest(request, response, 
                    "Data insertion failed");
        }
+       }else if(request.getRequestURI()
+               .equals(request.getContextPath()+"/admin/course/update")){
+           
+           int id = Integer.parseInt(request.getParameter("cid"));
+           String title = request.getParameter("ctitle");
+           float price = Float.parseFloat(request.getParameter("cprice"));
+           String duration = request.getParameter("cduration");
+           
+           CourseModel cm = new CourseModel(id, title, price, duration);
+           
+           if(CourseDao.update(cm)){
+               response.sendRedirect(request.getContextPath()
+                       +"/admin/course/display");
+           }else {
+               processRequest(request, response, "Course update failed!");
+           }
+           
        }
+        
+        
+        
+        
     }
 
     /**

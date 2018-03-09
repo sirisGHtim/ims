@@ -16,6 +16,9 @@
         <servlet-name>CourseController</servlet-name>
         <url-pattern>/admin/course/add</url-pattern>
         <url-pattern>/admin/course/display</url-pattern>
+        <url-pattern>/admin/course/edit</url-pattern>
+        <url-pattern>/admin/course/update</url-pattern>
+        <url-pattern>/admin/course/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -77,4 +77,68 @@ public class CourseDao {
         return al;
     }
     
+     public static ArrayList<CourseModel> selectById(int id){
+        ArrayList<CourseModel> al = new ArrayList<>();
+        Connection conn = MyConnection.connect();
+        PreparedStatement ps = null;
+        
+        if(conn!=null){
+            
+            String sql = "select * from course_tbl where id=?";
+            
+            try{
+               ps = conn.prepareStatement(sql);
+               ps.setInt(1, id);
+               
+               ResultSet rs = ps.executeQuery();
+               
+               if(rs.next()){
+                   al.add(new CourseModel(
+                           rs.getInt("id"), 
+                           rs.getString("title"),
+                           rs.getFloat("price"),
+                           rs.getString("duration")));
+               }
+                
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
+        
+        return al;
+    }
+    
+     public static boolean update(CourseModel cm){
+        
+        Connection conn = MyConnection.connect();
+        PreparedStatement ps = null;
+        boolean status = false;
+        
+        String sql ="update course_tbl set "
+                +"title=?, price=?, duration=? "
+                + "where id=?";
+        
+        
+        try{
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, cm.getTitle());
+            ps.setFloat(2, cm.getPrice());
+            ps.setString(3, cm.getDuration());
+            ps.setInt(4, cm.getId());
+            
+            
+            int i = ps.executeUpdate();
+            if(i==1){
+                System.out.println("Updated a row");
+                status = true;
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        return status;
+        
+     }
+     
 }
