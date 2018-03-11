@@ -141,4 +141,29 @@ public class CourseDao {
         
      }
      
+     public static boolean delete(int id){
+         Connection conn = MyConnection.connect();
+         PreparedStatement ps = null;
+         boolean status = false;
+         
+         if(conn!=null){
+             
+             String sql = "delete from course_tbl where id=?";
+             try{
+             ps = conn.prepareStatement(sql);
+             ps.setInt(1, id);
+             
+             int i = ps.executeUpdate();
+             if(i==1){
+                 System.out.println("Record deleted");
+                 status = true;
+             }
+                 
+             }catch(SQLException se){
+                 System.out.println(se);
+             }
+         }
+         return status;
+     }
+     
 }

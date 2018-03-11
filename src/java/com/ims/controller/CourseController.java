@@ -72,7 +72,6 @@ public class CourseController extends HttpServlet {
                .equals(request.getContextPath()+"/admin/course/display")){
            // fetch all course information from database
            ArrayList<CourseModel> al = CourseDao.selectAll();
-           
             
            request.setAttribute("coursedata", al);
            RequestDispatcher rd = request.getRequestDispatcher("/displaycourse.jsp");
@@ -86,6 +85,17 @@ public class CourseController extends HttpServlet {
 
             request.setAttribute("coursedata", CourseDao.selectById(id));
            request.getRequestDispatcher("/editcourse.jsp").forward(request, response);
+           
+       }
+       else if(request.getRequestURI()
+               .equals(request.getContextPath()+"/admin/course/delete")){
+           int id = Integer.parseInt(request.getParameter("id"));
+           if(CourseDao.delete(id)){
+           response.sendRedirect(request.getContextPath()
+                   +"/admin/course/display");
+           }else {
+               processRequest(request,response,"Record deletion unsuccessful!");
+           }
            
        }
     }
