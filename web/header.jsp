@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -15,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="${pageContext.request.contextPath}/admin/dashboard">
+          <a class="nav-link" href="${cp}/admin/dashboard">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
@@ -39,10 +41,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseCourse">
             <li>
-              <a href="${pageContext.request.contextPath}/admin/course/add">Add Course</a>
+              <a href="${cp}/admin/course/add">Add Course</a>
             </li>
             <li>
-              <a href="${pageContext.request.contextPath}/admin/course/display">Display Course</a>
+              <a href="${cp}/admin/course/display">Display Course</a>
             </li>
           </ul>
         </li>
@@ -53,10 +55,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseStudent">
             <li>
-              <a href="">Add Student</a>
+              <a href="${cp}/admin/student/add">Add Student</a>
             </li>
             <li>
-              <a href="">Display Student</a>
+              <a href="${cp}/admin/student/display">Display Student</a>
             </li>
           </ul>
         </li>
